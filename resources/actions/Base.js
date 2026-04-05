@@ -1,5 +1,5 @@
 import {expect} from '@playwright/test';
-import Verification from '../../../utiility/verifications';
+import Verification from '../../utiility/verifications';
 
 class BasePage extends Verification {
 
@@ -9,7 +9,7 @@ class BasePage extends Verification {
     }
 
     async openUrl(url){
-        await this.page.goto(url);
+       return await this.page.goto(url);
     }
 
     async getPageTitle(){
@@ -106,6 +106,54 @@ class BasePage extends Verification {
         }   
 
     }
+
+    async getAttributeValue(selector, attribute){
+        const element = await this.page.$(selector);
+        return await element.getAttribute(attribute);
+    }
+
+    async isElementEnable(selector){
+        const element = await this.page.$(selector);
+        await this.wait();
+        const isEnable = await element.isEnabled();
+        return isEnable;
+    }
+
+    async isElementVisible(selector){
+        try{
+            await this.verifyElementVisible(selector);
+            return true;
+        }catch(error){
+            return false;
+        }
+    }
+
+    async waitUntilElementIsNotVisible(selector, timeout=5){
+        const element = this.page.locator
+        await this.wait();
+        try{
+            await expect(element).toHaveCount(0, {timeout: timeout*1000});
+
+        }catch(error){
+            throw new Error(`Element ${selector} is still visible after ${timeout} seconds`);
+        }
+    }
+
+    async verifyElementTextNotEqual(selector, expectedText, timeout=5 ){
+        const element = this.page.locator(selector);
+        try{
+
+            await expect(element).not.toHaveText(expectedText, {timeout: timeout*1000});
+        }catch(error){
+            throw new Error(CommonConstant.elementErrorMessage.elementTextEqual)
+            .replace('{selector}', selector)
+            .replace('{expectedText}', expectedText);
+        }
+    }
+    
+
+
+     
 
 
 }   

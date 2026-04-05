@@ -1,0 +1,19 @@
+{
+
+    "DEV":{
+
+        "base_url": "www.saucedemo.com",
+        "username": "standard_user",
+        "password": "secret_sauce"
+
+        },
+        
+    "STG":{
+
+        "base_url": "www.saucedemo.com",
+        "username": "standard_user",
+        "password": "secret_sauce"
+
+        }
+        
+}
