@@ -141,6 +141,19 @@ class BasePage extends Verification {
         }
     }
 
+    async verifyElementTextNotEqual(selector, expectedText, timeout=5 ){
+        const element = this.page.locator(selector);
+        try{
+
+            await expect(element).not.toHaveText(expectedText, {timeout: timeout*1000});
+        }catch(error){
+            throw new Error(CommonConstant.elementErrorMessage.elementTextEqual)
+            .replace('{selector}', selector)
+            .replace('{expectedText}', expectedText);
+        }
+    }
+    
+
 
      
 
