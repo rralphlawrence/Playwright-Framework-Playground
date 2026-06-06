@@ -11,11 +11,10 @@ class swagProduct extends CommonActions {
     }
 
     async swagProductsIsVisible(){
-        await this.verifyElementVisible(CommonPage.swagLogo);
-         await this.verifyElementVisible(CommonPage.swagLogo);
-          await this.verifyElementVisible(CommonPage.swagLogo);
-           await this.verifyElementVisible(CommonPage.swagLogo);
-        
+        await this.verifyElementVisible(ProductPage.productImage);
+        await this.verifyElementVisible(ProductPage.productName);
+        await this.verifyElementVisible(ProductPage.productDescription);
+        await this.verifyElementVisible(ProductPage.productPrice);
 
     }
 
@@ -25,9 +24,6 @@ class swagProduct extends CommonActions {
      * @param {string} expectedText - The expected title text
      * @param {number} [timeout=5] - Timeout in seconds
      */
-    async verifyPageLogoText(expectedText, timeout = 5) {
-        await this.verifyElementText(CommonPage.swagLogo, expectedText, timeout);
-    }
 
 
 }   
