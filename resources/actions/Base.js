@@ -128,6 +128,8 @@ class BasePage extends Verification {
         }
     }
 
+    
+
     async waitUntilElementIsNotVisible(selector, timeout=5){
         const element = this.page.locator
         await this.wait();
