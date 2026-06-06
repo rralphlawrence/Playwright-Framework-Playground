@@ -128,6 +128,8 @@ class BasePage extends Verification {
         }
     }
 
+    
+
     async waitUntilElementIsNotVisible(selector, timeout=5){
         const element = this.page.locator
         await this.wait();
@@ -138,19 +140,6 @@ class BasePage extends Verification {
             throw new Error(`Element ${selector} is still visible after ${timeout} seconds`);
         }
     }
-
-    async verifyElementTextNotEqual(selector, expectedText, timeout=5 ){
-        const element = this.page.locator(selector);
-        try{
-
-            await expect(element).not.toHaveText(expectedText, {timeout: timeout*1000});
-        }catch(error){
-            throw new Error(CommonConstant.elementErrorMessage.elementTextEqual)
-            .replace('{selector}', selector)
-            .replace('{expectedText}', expectedText);
-        }
-    }
-    
 
 
      

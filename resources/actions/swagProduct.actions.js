@@ -1,26 +1,22 @@
 import { getUsername, getPassword } from "../../dataobjects/config"; 
-import * as LoginPage from "../../page/login.page";
 import CommonActions from './common.actions'
 import * as CommonPage from "../../page/common.page";
+import * as ProductPage from "../../page/product.Page";
 
 
-class LoginAction extends CommonActions {
+class swagProduct extends CommonActions {
 
     constructor(page){
         super(page);
     }
 
-    async loginUser(){
-        await this.waitAndFill(LoginPage.LoginUsername, getUsername());
-        await this.waitAndFill(LoginPage.LoginPassword, getPassword());
-        await this.waitAndClick(LoginPage.LoginButton);
+    async swagProductsIsVisible(){
+        await this.verifyElementVisible(CommonPage.swagLogo);
+         await this.verifyElementVisible(CommonPage.swagLogo);
+          await this.verifyElementVisible(CommonPage.swagLogo);
+           await this.verifyElementVisible(CommonPage.swagLogo);
         
-    }
 
-    async logoutUser(){
-        await this.waitAndClick(CommonPage.burgerMenuButton);
-        await this.waitAndClick(CommonPage.logoutButton);
-        await this.verifyElementVisible(LoginPage.LoginButton);
     }
 
     /**
@@ -35,4 +31,4 @@ class LoginAction extends CommonActions {
 
 
 }   
-export default LoginAction;
+export default swagProduct;
