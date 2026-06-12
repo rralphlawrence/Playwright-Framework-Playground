@@ -1,8 +1,9 @@
-import { expect } from '@playwright/test';
+import { expect, Page, Locator } from '@playwright/test';
 
 class Verification {
+    protected page: Page;
 
-    constructor(page) {
+    constructor(page: Page) {
         this.page = page;
     }
 
@@ -10,8 +11,8 @@ class Verification {
     // Element State Assertions
     // ─────────────────────────────────────────────
 
-    async verifyElementVisible(selector, timeout = 5) {
-        const element = this.page.locator(selector);
+    async verifyElementVisible(selector: string, timeout: number = 5): Promise<void> {
+        const element: Locator = this.page.locator(selector);
         try {
             await expect(element).toBeVisible({ timeout: timeout * 1000 });
         } catch (error) {
@@ -19,8 +20,27 @@ class Verification {
         }
     }
 
-    async verifyElementNotVisible(selector, timeout = 5) {
-        const element = this.page.locator(selector);
+    async verifyAllElementsVisible(selector: string, timeout: number = 5): Promise<void> {
+        const elements: Locator = this.page.locator(selector);
+        const count: number = await elements.count();
+
+        if (count === 0) {
+            throw new Error(`Expected at least one element matching "${selector}" to exist, but none were found.`);
+        }
+
+        for (let i = 0; i < count; i++) {
+            try {
+                await expect(elements.nth(i)).toBeVisible({ timeout: timeout * 1000 });
+            } catch (error) {
+                throw new Error(
+                    `Expected element ${i + 1} of ${count} matching "${selector}" to be visible, but it was not.`
+                );
+            }
+        }
+    }
+
+    async verifyElementNotVisible(selector: string, timeout: number = 5): Promise<void> {
+        const element: Locator = this.page.locator(selector);
         try {
             await expect(element).not.toBeVisible({ timeout: timeout * 1000 });
         } catch (error) {
@@ -28,8 +48,8 @@ class Verification {
         }
     }
 
-    async verifyElementEnabled(selector, timeout = 5) {
-        const element = this.page.locator(selector);
+    async verifyElementEnabled(selector: string, timeout: number = 5): Promise<void> {
+        const element: Locator = this.page.locator(selector);
         try {
             await expect(element).toBeEnabled({ timeout: timeout * 1000 });
         } catch (error) {
@@ -37,8 +57,8 @@ class Verification {
         }
     }
 
-    async verifyElementDisabled(selector, timeout = 5) {
-        const element = this.page.locator(selector);
+    async verifyElementDisabled(selector: string, timeout: number = 5): Promise<void> {
+        const element: Locator = this.page.locator(selector);
         try {
             await expect(element).toBeDisabled({ timeout: timeout * 1000 });
         } catch (error) {
@@ -46,8 +66,8 @@ class Verification {
         }
     }
 
-    async verifyElementChecked(selector, timeout = 5) {
-        const element = this.page.locator(selector);
+    async verifyElementChecked(selector: string, timeout: number = 5): Promise<void> {
+        const element: Locator = this.page.locator(selector);
         try {
             await expect(element).toBeChecked({ timeout: timeout * 1000 });
         } catch (error) {
@@ -55,8 +75,8 @@ class Verification {
         }
     }
 
-    async verifyElementNotChecked(selector, timeout = 5) {
-        const element = this.page.locator(selector);
+    async verifyElementNotChecked(selector: string, timeout: number = 5): Promise<void> {
+        const element: Locator = this.page.locator(selector);
         try {
             await expect(element).not.toBeChecked({ timeout: timeout * 1000 });
         } catch (error) {
@@ -64,8 +84,8 @@ class Verification {
         }
     }
 
-    async verifyElementCount(selector, count, timeout = 5) {
-        const element = this.page.locator(selector);
+    async verifyElementCount(selector: string, count: number, timeout: number = 5): Promise<void> {
+        const element: Locator = this.page.locator(selector);
         try {
             await expect(element).toHaveCount(count, { timeout: timeout * 1000 });
         } catch (error) {
@@ -77,8 +97,8 @@ class Verification {
     // Text / Value Assertions
     // ─────────────────────────────────────────────
 
-    async verifyElementText(selector, expectedText, timeout = 5) {
-        const element = this.page.locator(selector);
+    async verifyElementText(selector: string, expectedText: string | RegExp | string[], timeout: number = 5): Promise<void> {
+        const element: Locator = this.page.locator(selector);
         try {
             await expect(element).toHaveText(expectedText, { timeout: timeout * 1000 });
         } catch (error) {
@@ -86,8 +106,8 @@ class Verification {
         }
     }
 
-    async verifyElementContainsText(selector, text, timeout = 5) {
-        const element = this.page.locator(selector);
+    async verifyElementContainsText(selector: string, text: string | RegExp, timeout: number = 5): Promise<void> {
+        const element: Locator = this.page.locator(selector);
         try {
             await expect(element).toContainText(text, { timeout: timeout * 1000 });
         } catch (error) {
@@ -95,8 +115,8 @@ class Verification {
         }
     }
 
-    async verifyElementTextNotEqual(selector, expectedText, timeout = 5) {
-        const element = this.page.locator(selector);
+    async verifyElementTextNotEqual(selector: string, expectedText: string | RegExp | string[], timeout: number = 5): Promise<void> {
+        const element: Locator = this.page.locator(selector);
         try {
             await expect(element).not.toHaveText(expectedText, { timeout: timeout * 1000 });
         } catch (error) {
@@ -104,8 +124,8 @@ class Verification {
         }
     }
 
-    async verifyInputValue(selector, value, timeout = 5) {
-        const element = this.page.locator(selector);
+    async verifyInputValue(selector: string, value: string, timeout: number = 5): Promise<void> {
+        const element: Locator = this.page.locator(selector);
         try {
             await expect(element).toHaveValue(value, { timeout: timeout * 1000 });
         } catch (error) {
@@ -113,8 +133,8 @@ class Verification {
         }
     }
 
-    async verifyAttributeValue(selector, attribute, value, timeout = 5) {
-        const element = this.page.locator(selector);
+    async verifyAttributeValue(selector: string, attribute: string, value: string | RegExp, timeout: number = 5): Promise<void> {
+        const element: Locator = this.page.locator(selector);
         try {
             await expect(element).toHaveAttribute(attribute, value, { timeout: timeout * 1000 });
         } catch (error) {
@@ -126,7 +146,7 @@ class Verification {
     // Page-Level Assertions
     // ─────────────────────────────────────────────
 
-    async verifyPageTitle(expectedTitle, timeout = 5) {
+    async verifyPageTitle(expectedTitle: string | RegExp, timeout: number = 5): Promise<void> {
         try {
             await expect(this.page).toHaveTitle(expectedTitle, { timeout: timeout * 1000 });
         } catch (error) {
@@ -134,7 +154,7 @@ class Verification {
         }
     }
 
-    async verifyPageUrl(expectedUrl, timeout = 5) {
+    async verifyPageUrl(expectedUrl: string | RegExp, timeout: number = 5): Promise<void> {
         try {
             await expect(this.page).toHaveURL(expectedUrl, { timeout: timeout * 1000 });
         } catch (error) {
@@ -142,7 +162,7 @@ class Verification {
         }
     }
 
-    async verifyPageUrlContains(urlPart, timeout = 5) {
+    async verifyPageUrlContains(urlPart: string, timeout: number = 5): Promise<void> {
         try {
             await expect(this.page).toHaveURL(new RegExp(urlPart), { timeout: timeout * 1000 });
         } catch (error) {
@@ -154,105 +174,67 @@ class Verification {
     // Value Comparison Assertions
     // ─────────────────────────────────────────────
 
-    /**
-     * Asserts that actual value strictly equals expected value.
-     * @param {*} actual
-     * @param {*} expected
-     * @param {string} [message]
-     */
-    verifyEquals(actual, expected, message) {
+    verifyEquals(actual: unknown, expected: unknown, message?: string): void {
         try {
             expect(actual).toEqual(expected);
         } catch (error) {
-            throw new Error(message ?? `Expected "${actual}" to equal "${expected}", but it did not.`);
+            throw new Error(message ?? `Expected "${String(actual)}" to equal "${String(expected)}", but it did not.`);
         }
     }
 
-    /**
-     * Asserts that a string or array contains the expected value.
-     * @param {string|Array} actual
-     * @param {*} expected
-     * @param {string} [message]
-     */
-    verifyContains(actual, expected, message) {
+    verifyContains(actual: string | unknown[], expected: unknown, message?: string): void {
         try {
             if (typeof actual === 'string') {
-                expect(actual).toContain(expected);
+                expect(actual).toContain(expected as string);
             } else if (Array.isArray(actual)) {
                 expect(actual).toContain(expected);
             } else {
                 throw new Error(`verifyContains: unsupported type "${typeof actual}". Use a string or array.`);
             }
         } catch (error) {
-            throw new Error(message ?? `Expected "${actual}" to contain "${expected}", but it did not.`);
+            throw new Error(message ?? `Expected "${String(actual)}" to contain "${String(expected)}", but it did not.`);
         }
     }
 
-    /**
-     * Asserts that a string or array does NOT contain the expected value.
-     * @param {string|Array} actual
-     * @param {*} expected
-     * @param {string} [message]
-     */
-    verifyNotContains(actual, expected, message) {
+    verifyNotContains(actual: string | unknown[], expected: unknown, message?: string): void {
         try {
             if (typeof actual === 'string') {
-                expect(actual).not.toContain(expected);
+                expect(actual).not.toContain(expected as string);
             } else if (Array.isArray(actual)) {
                 expect(actual).not.toContain(expected);
             } else {
                 throw new Error(`verifyNotContains: unsupported type "${typeof actual}". Use a string or array.`);
             }
         } catch (error) {
-            throw new Error(message ?? `Expected "${actual}" to NOT contain "${expected}", but it did.`);
+            throw new Error(message ?? `Expected "${String(actual)}" to NOT contain "${String(expected)}", but it did.`);
         }
     }
 
-    /**
-     * Asserts that the value is truthy.
-     * @param {*} value
-     * @param {string} [message]
-     */
-    verifyIsTrue(value, message) {
+    verifyIsTrue(value: unknown, message?: string): void {
         try {
             expect(value).toBeTruthy();
         } catch (error) {
-            throw new Error(message ?? `Expected value to be truthy, but received "${value}".`);
+            throw new Error(message ?? `Expected value to be truthy, but received "${String(value)}".`);
         }
     }
 
-    /**
-     * Asserts that the value is falsy.
-     * @param {*} value
-     * @param {string} [message]
-     */
-    verifyIsFalse(value, message) {
+    verifyIsFalse(value: unknown, message?: string): void {
         try {
             expect(value).toBeFalsy();
         } catch (error) {
-            throw new Error(message ?? `Expected value to be falsy, but received "${value}".`);
+            throw new Error(message ?? `Expected value to be falsy, but received "${String(value)}".`);
         }
     }
 
-    /**
-     * Asserts that the value is null or undefined.
-     * @param {*} value
-     * @param {string} [message]
-     */
-    verifyIsNull(value, message) {
+    verifyIsNull(value: unknown, message?: string): void {
         try {
             expect(value == null).toBe(true);
         } catch (error) {
-            throw new Error(message ?? `Expected value to be null/undefined, but received "${value}".`);
+            throw new Error(message ?? `Expected value to be null/undefined, but received "${String(value)}".`);
         }
     }
 
-    /**
-     * Asserts that the value is NOT null or undefined.
-     * @param {*} value
-     * @param {string} [message]
-     */
-    verifyIsNotNull(value, message) {
+    verifyIsNotNull(value: unknown, message?: string): void {
         try {
             expect(value).not.toBeNull();
             expect(value).not.toBeUndefined();
@@ -261,13 +243,7 @@ class Verification {
         }
     }
 
-    /**
-     * Asserts that a string or array has the expected length.
-     * @param {string|Array} value
-     * @param {number} expectedLength
-     * @param {string} [message]
-     */
-    verifyLength(value, expectedLength, message) {
+    verifyLength(value: string | unknown[], expectedLength: number, message?: string): void {
         try {
             expect(value).toHaveLength(expectedLength);
         } catch (error) {
@@ -275,13 +251,7 @@ class Verification {
         }
     }
 
-    /**
-     * Asserts that an object/array contains the expected object or subset.
-     * @param {Object|Array} actual
-     * @param {Object} expectedObject
-     * @param {string} [message]
-     */
-    verifyHasObject(actual, expectedObject, message) {
+    verifyHasObject(actual: Record<string, unknown> | unknown[], expectedObject: Record<string, unknown>, message?: string): void {
         try {
             if (Array.isArray(actual)) {
                 expect(actual).toContainEqual(expectedObject);
@@ -293,27 +263,15 @@ class Verification {
         }
     }
 
-    /**
-     * Asserts that actual value does NOT equal expected value.
-     * @param {*} actual
-     * @param {*} expected
-     * @param {string} [message]
-     */
-    verifyNotEquals(actual, expected, message) {
+    verifyNotEquals(actual: unknown, expected: unknown, message?: string): void {
         try {
             expect(actual).not.toEqual(expected);
         } catch (error) {
-            throw new Error(message ?? `Expected "${actual}" to NOT equal "${expected}", but it did.`);
+            throw new Error(message ?? `Expected "${String(actual)}" to NOT equal "${String(expected)}", but it did.`);
         }
     }
 
-    /**
-     * Asserts that actual number is greater than expected.
-     * @param {number} actual
-     * @param {number} expected
-     * @param {string} [message]
-     */
-    verifyGreaterThan(actual, expected, message) {
+    verifyGreaterThan(actual: number, expected: number, message?: string): void {
         try {
             expect(actual).toBeGreaterThan(expected);
         } catch (error) {
@@ -321,13 +279,7 @@ class Verification {
         }
     }
 
-    /**
-     * Asserts that actual number is less than expected.
-     * @param {number} actual
-     * @param {number} expected
-     * @param {string} [message]
-     */
-    verifyLessThan(actual, expected, message) {
+    verifyLessThan(actual: number, expected: number, message?: string): void {
         try {
             expect(actual).toBeLessThan(expected);
         } catch (error) {
@@ -335,13 +287,7 @@ class Verification {
         }
     }
 
-    /**
-     * Asserts that a value matches a regular expression.
-     * @param {string} value
-     * @param {RegExp|string} pattern
-     * @param {string} [message]
-     */
-    verifyMatchesPattern(value, pattern, message) {
+    verifyMatchesPattern(value: string, pattern: RegExp | string, message?: string): void {
         try {
             expect(value).toMatch(pattern);
         } catch (error) {
@@ -349,12 +295,7 @@ class Verification {
         }
     }
 
-    /**
-     * Asserts that an array or object is empty.
-     * @param {Array|Object|string} value
-     * @param {string} [message]
-     */
-    verifyIsEmpty(value, message) {
+    verifyIsEmpty(value: string | unknown[] | Record<string, unknown>, message?: string): void {
         try {
             if (typeof value === 'string' || Array.isArray(value)) {
                 expect(value).toHaveLength(0);
@@ -366,12 +307,7 @@ class Verification {
         }
     }
 
-    /**
-     * Asserts that an array or object is NOT empty.
-     * @param {Array|Object|string} value
-     * @param {string} [message]
-     */
-    verifyIsNotEmpty(value, message) {
+    verifyIsNotEmpty(value: string | unknown[] | Record<string, unknown>, message?: string): void {
         try {
             if (typeof value === 'string' || Array.isArray(value)) {
                 expect(value.length).toBeGreaterThan(0);
@@ -387,27 +323,27 @@ class Verification {
     // Soft Assertions
     // ─────────────────────────────────────────────
 
-    async softVerifyElementVisible(selector, timeout = 5) {
+    async softVerifyElementVisible(selector: string, timeout: number = 5): Promise<void> {
         const softExpect = expect.soft(this.page.locator(selector));
         await softExpect.toBeVisible({ timeout: timeout * 1000 });
     }
 
-    async softVerifyElementText(selector, text, timeout = 5) {
+    async softVerifyElementText(selector: string, text: string | RegExp, timeout: number = 5): Promise<void> {
         const softExpect = expect.soft(this.page.locator(selector));
         await softExpect.toHaveText(text, { timeout: timeout * 1000 });
     }
 
-    softVerifyEquals(actual, expected, message) {
+    softVerifyEquals(actual: unknown, expected: unknown, message?: string): void {
         const softExpect = expect.soft(actual, message);
         softExpect.toEqual(expected);
     }
 
-    softVerifyIsTrue(value, message) {
+    softVerifyIsTrue(value: unknown, message?: string): void {
         const softExpect = expect.soft(value, message);
         softExpect.toBeTruthy();
     }
 
-    softVerifyIsFalse(value, message) {
+    softVerifyIsFalse(value: unknown, message?: string): void {
         const softExpect = expect.soft(value, message);
         softExpect.toBeFalsy();
     }
