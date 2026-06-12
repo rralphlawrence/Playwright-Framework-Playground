@@ -1,25 +1,22 @@
-import test from '../fixture/webfixture'
-
+import test from '../fixture/webfixture';
+import { LOGIN } from '../data/testdata/pageTexts.data';
 
 test.beforeEach(async ({ common, login }) => {
-
     await common.openBaseUrl();
 });
 
 test.describe('Login Tests', () => {
 
-
     test('Login with valid credentials', async ({ login }) => {
         await login.loginUser();
         // Using verifyElementText inherited from Verification 
         // through BasePage -> CommonActions -> LoginAction
-        await login.verifyPageLogoText("Swag Labs");
-
+        await login.verifyPageLogoText(LOGIN.logoText);
     });
 
     test('Login and Logout with valid credentials', async ({ login }) => {
         await login.loginUser();
-        await login.verifyPageLogoText("Swag Labs");
+        await login.verifyPageLogoText(LOGIN.logoText);
         await login.logoutUser();
     });
 
@@ -28,4 +25,3 @@ test.describe('Login Tests', () => {
 test.afterEach(async ({ page }) => {
     await page.close();
 });
-

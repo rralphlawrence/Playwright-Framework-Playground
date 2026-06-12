@@ -1,15 +1,13 @@
-import test from '../fixture/webfixture'
-
+import test from '../fixture/webfixture';
 
 test.beforeEach(async ({ common, login }) => {
-
     await common.openBaseUrl();
-     await login.loginUser();
+    await login.loginUser();
 });
 
 test.describe('Product Tests', () => {
 
-    test('User is able view available products ', async ({ products }) => {
+    test('User is able view available products', async ({ products }) => {
         await products.swagProductsIsVisible();
     });
 
@@ -18,4 +16,3 @@ test.describe('Product Tests', () => {
 test.afterEach(async ({ login }) => {
     await login.logoutUser();
 });
-
