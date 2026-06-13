@@ -10,7 +10,9 @@
     "test:headed:stg": "set ENV=STG && npx playwright test --headed",
     "allure:clean": "if exist allure-results rmdir /s /q allure-results && if exist allure-report rmdir /s /q allure-report",
     "allure:generate": "npx allure generate ./allure-results -o ./allure-report",
-    "allure:open": "npx allure open ./allure-report"
+    "allure:open": "npx allure open ./allure-report",
+    "test:ui": "npx playwright test --ui --headed"
+
   },
   "keywords": [],
   "author": "",
@@ -23,6 +25,6 @@
     "typescript": "^6.0.3"
   },
   "dependencies": {
-    "dotenv": "^17.4.0"
+    "dotenv": "^17.4.2"
   }
 }

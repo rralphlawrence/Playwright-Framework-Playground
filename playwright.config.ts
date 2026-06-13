@@ -25,7 +25,6 @@ export default defineConfig({
     browserName: 'chromium',
     headless: true,
     trace: 'on-first-retry',
-    viewport: { width: 1920, height: 10880 },
     video: 'retain-on-failure',
     screenshot: 'only-on-failure',
   },
@@ -35,9 +34,9 @@ export default defineConfig({
     {
       name: 'chromium',
       use: {
-        ...devices['Desktop Chrome'],
+        browserName: 'chromium',
         channel: 'chrome',
-        viewport: { width: 1920, height: 1080 },
+        viewport: null,
         launchOptions: {
           args: ['--start-maximized',
             '--disable-blink-features=AutomationControlled'

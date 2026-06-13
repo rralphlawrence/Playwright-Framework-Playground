@@ -10,15 +10,17 @@ class LoginAction extends CommonActions {
         super(page);
     }
 
-    async loginUser(): Promise<void> {
+    async loginUser(text?: string): Promise<void> {
         await this.waitAndFill(LoginPage.LoginUsername, getUsername());
         await this.waitAndFill(LoginPage.LoginPassword, getPassword());
         await this.waitAndClick(LoginPage.LoginButton);
+        if (text) {
+            await this.CheckSwabLogedIn(text);
+        }
     }
 
     async logoutUser(): Promise<void> {
-        await this.waitAndClick(CommonPage.burgerMenuButton);
-        await this.waitAndClick(CommonPage.logoutButton);
+        await this.logout();
         await this.verifyElementVisible(LoginPage.LoginButton);
     }
 

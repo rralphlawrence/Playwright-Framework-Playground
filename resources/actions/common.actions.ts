@@ -18,6 +18,11 @@ class CommonActions extends BasePage {
         await this.isElementVisible(CommonPage.swagLogo);
         await this.verifyElementText(CommonPage.swagLogo, text);
     }
+
+    async logout(): Promise<void> {
+        await this.waitAndClick(CommonPage.burgerMenuButton);
+        await this.waitAndClick(CommonPage.logoutButton);
+    }
 }
 
 export default CommonActions;

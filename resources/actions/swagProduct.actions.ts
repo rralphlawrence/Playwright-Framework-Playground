@@ -2,7 +2,7 @@ import { Page } from '@playwright/test';
 import CommonActions from './common.actions';
 import * as ProductPage from '../../page/product.Page';
 
-class swagProduct extends CommonActions {
+class SwagProduct extends CommonActions {
 
     constructor(page: Page) {
         super(page);
@@ -18,4 +18,4 @@ class swagProduct extends CommonActions {
 
 }
 
-export default swagProduct;
+export default SwagProduct;

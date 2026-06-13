@@ -1,12 +1,12 @@
 import { test as fixture, Page } from '@playwright/test';
 import CommonActions from '../resources/actions/common.actions';
 import LoginAction from '../resources/actions/login.action';
-import swagProduct from '../resources/actions/swagProduct.actions';
+import SwagProduct from '../resources/actions/swagProduct.actions';
 
 type MyFixtures = {
     common: CommonActions;
     login: LoginAction;
-    products: swagProduct;
+    products: SwagProduct;
 };
 
 const test = fixture.extend<MyFixtures>({
@@ -17,7 +17,7 @@ const test = fixture.extend<MyFixtures>({
         await use(new LoginAction(page));
     },
     products: async ({ page }, use) => {
-        await use(new swagProduct(page));
+        await use(new SwagProduct(page));
     }
 });
 
