@@ -14,7 +14,7 @@ interface ConfigFile {
     [key: string]: ConfigEnvironment;
 }
 
-const env: string = process.env.ENV ?? process.env.environment ?? ' STG';
+const env: string = process.env.ENV ?? process.env.environment ?? 'DEV';
 
 export function getBaseUrl(): string {
     return (config as ConfigFile)[env].base_url;
