@@ -18,8 +18,6 @@ class CommonActions extends BasePage {
         await this.isElementVisible(CommonPage.swagLogo);
         await this.verifyElementText(CommonPage.swagLogo, text);
     }
-
-    //hehehe
 }
 
 export default CommonActions;
