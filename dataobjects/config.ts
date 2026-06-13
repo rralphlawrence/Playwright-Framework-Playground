@@ -5,8 +5,8 @@ dotenv.config();
 
 interface ConfigEnvironment {
     base_url: string;
-    username: string;
-    password: string;
+    username?: string;
+    password?: string;
     browser?: string;
 }
 
@@ -21,11 +21,23 @@ export function getBaseUrl(): string {
 }
 
 export function getUsername(): string {
-    return (config as ConfigFile)[env].username;
+    // Try environment variable first (e.g., STG_USERNAME, DEV_USERNAME, PROD_USERNAME)
+    const envUsername = process.env[`${env}_USERNAME`];
+    if (envUsername) {
+        return envUsername;
+    }
+    // Fallback to config.json
+    return (config as ConfigFile)[env].username ?? '';
 }
 
 export function getPassword(): string {
-    return (config as ConfigFile)[env].password;
+    // Try environment variable first (e.g., STG_PASSWORD, DEV_PASSWORD, PROD_PASSWORD)
+    const envPassword = process.env[`${env}_PASSWORD`];
+    if (envPassword) {
+        return envPassword;
+    }
+    // Fallback to config.json
+    return (config as ConfigFile)[env].password ?? '';
 }
 
 export function getBrowser(): string | undefined {
