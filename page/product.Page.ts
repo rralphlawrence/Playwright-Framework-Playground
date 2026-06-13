@@ -1,6 +1,6 @@
-export const swagLogo: string = "(//div[@class='app_logo'])[1]";
-export const productImage: string = "(//div[@class='inventory_item_img'])[1]";
-export const productDescription: string = "//div[@class='inventory_item_desc']";
-export const productPrice: string = "//div[@class='inventory_item_price']";
-export const productItem: string = "//div[@class='inventory_item_label']";
-export const addToCartButton: string = "//button[@class='btn btn_primary btn_small btn_inventory ']";
+export const swagLogo: string = ".app_logo";
+export const productImage: string = ".inventory_item_img img";
+export const productDescription: string = ".inventory_item_desc";
+export const productPrice: string = ".inventory_item_price";
+export const productItem: string = ".inventory_item_label";
+export const addToCartButton: string = ".btn_inventory";

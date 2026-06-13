@@ -8,14 +8,12 @@ test.beforeEach(async ({ common, login }) => {
 test.describe('Login Tests', () => {
 
     test('Login with valid credentials', async ({ login }) => {
-        await login.loginUser();
-        // Using verifyElementText inherited from Verification 
-        // through BasePage -> CommonActions -> LoginAction
+        await login.loginUser(LOGIN.logoText);
         await login.verifyPageLogoText(LOGIN.logoText);
     });
 
     test('Login and Logout with valid credentials', async ({ login }) => {
-        await login.loginUser();
+        await login.loginUser(LOGIN.logoText);
         await login.verifyPageLogoText(LOGIN.logoText);
         await login.logoutUser();
     });

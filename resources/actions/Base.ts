@@ -1,5 +1,5 @@
 import { expect, Page, Locator, Response } from '@playwright/test';
-import Verification from '../../utiility/verifications';
+import Verification from '../../utility/verifications';
 
 class BasePage extends Verification {
 

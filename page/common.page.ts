@@ -1,3 +1,3 @@
-export const swagLogo: string = "(//div[@class='app_logo'])[1]";
-export const burgerMenuButton: string = "(//button[@id='react-burger-menu-btn'])[1]";
+export const swagLogo: string = ".app_logo";
+export const burgerMenuButton: string = "[id='react-burger-menu-btn']";
 export const logoutButton: string = "[data-test='logout-sidebar-link']";
