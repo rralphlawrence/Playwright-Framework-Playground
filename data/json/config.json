@@ -2,17 +2,13 @@
 
     "DEV":{
 
-        "base_url": "https://www.saucedemo.com/",
-        "username": "standard_user",
-        "password": "secret_sauce"
+        "base_url": "https://www.saucedemo.com/"
 
         },
         
     "STG":{
 
-        "base_url": "https://www.saucedemo.com/",
-        "username": "standard_user",
-        "password": "secret_sauce"
+        "base_url": "https://www.saucedemo.com/"
 
         }
         

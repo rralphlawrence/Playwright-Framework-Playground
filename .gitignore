@@ -1,4 +1,7 @@
 
+# Environment variables (secrets)
+.env
+
 # Playwright
 node_modules/
 /test-results/
