@@ -28,6 +28,8 @@ class LoginAction extends CommonActions {
         await this.verifyElementText(CommonPage.swagLogo, expectedText, timeout);
     }
 
+    
+
 }
 
 export default LoginAction;
