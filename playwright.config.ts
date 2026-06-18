@@ -13,6 +13,8 @@ export default defineConfig({
   reporter: [
     ['html', { open: 'never' }],
     ['list'],
+    ['github'],
+    ['junit', { outputFile: 'test-results/junit.xml' }],
     ['allure-playwright'],
   ],
   outputDir: 'test-results',
