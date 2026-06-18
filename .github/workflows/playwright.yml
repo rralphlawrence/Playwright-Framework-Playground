@@ -10,7 +10,7 @@ on:
         type: choice
         options:
           - STG
-          - DEV  
+          - DEV
   push:
     branches: [ main, master ]
   pull_request:
@@ -36,7 +36,7 @@ jobs:
 
     - name: Run Playwright tests
       env:
-        ENV: ${{ github.event.inputs.environment }}
+        ENV: ${{ github.event.inputs.environment || 'STG' }}
         STG_USERNAME: ${{ secrets.STG_USERNAME }}
         STG_PASSWORD: ${{ secrets.STG_PASSWORD }}
       run: npx playwright test
