@@ -39,7 +39,7 @@ jobs:
         ENV: ${{ github.event.inputs.environment || 'STG' }}
         STG_USERNAME: ${{ secrets.STG_USERNAME }}
         STG_PASSWORD: ${{ secrets.STG_PASSWORD }}
-      run: npx playwright test
+      run: npx playwright test --config=playwright.config.ts
       continue-on-error: true
 
     - name: Upload Playwright HTML Report

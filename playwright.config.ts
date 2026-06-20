@@ -38,10 +38,13 @@ export default defineConfig({
       use: {
         browserName: 'chromium',
         channel: 'chrome',
-        viewport: null,
+        // Explicit viewport ensures consistent layout in headless CI
+        // (viewport: null + --start-maximized fails in headless mode)
+        viewport: { width: 1920, height: 1080 },
         launchOptions: {
-          args: ['--start-maximized',
-            '--disable-blink-features=AutomationControlled'
+          args: [
+            '--disable-blink-features=AutomationControlled',
+            '--start-maximized',
           ],
         },
       },
