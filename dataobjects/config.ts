@@ -15,12 +15,16 @@ interface ConfigFile {
     [key: string]: ConfigEnvironment;
 }
 
+<<<<<<< HEAD
 const env: string = process.env.ENV ?? process.env.environment ?? 'STG';
 
 // Use fs.readFileSync to avoid TypeScript resolveJsonModule inconsistencies
 // that can occur between local and CI environments
 const configPath = path.resolve(process.cwd(), 'data/json/config.json');
 const config: ConfigFile = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+=======
+const env: string = process.env.ENV ?? process.env.environment ?? ' STG';
+>>>>>>> origin/Dev
 
 export function getBaseUrl(): string {
     const envConfig = (config as ConfigFile)[env];
