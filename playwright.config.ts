@@ -14,6 +14,7 @@ export default defineConfig({
     ['html', { open: 'never' }],
     ['list'],
     ['allure-playwright'],
+    ['json', { outputFile: 'test-results/results.json' }],
   ],
   outputDir: 'test-results',
   timeout: 30 * 1000,
