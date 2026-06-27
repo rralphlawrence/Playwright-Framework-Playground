@@ -2,8 +2,8 @@ name: Playwright Tests
 on:
 
   schedule:
-    # Runs at 09:00 UTC every day
-    - cron: '0 9 * * *'
+    # Runs at 9:15 AM Philippine Time (01:15 UTC) every day
+    - cron: '15 1 * * *'
 
   workflow_dispatch:
   push:
