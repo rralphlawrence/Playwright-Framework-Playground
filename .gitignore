@@ -11,3 +11,10 @@ node_modules/
 /playwright/.auth/
 /allure-results/
 /allure-report/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
