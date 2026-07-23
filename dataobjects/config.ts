@@ -7,6 +7,8 @@ interface ConfigEnvironment {
     base_url: string;
     username?: string;
     password?: string;
+    lockout_username?: string;
+    lockout_password?: string;
     browser?: string;
 }
 
@@ -38,6 +40,26 @@ export function getPassword(): string {
     }
     // Fallback to config.json
     return (config as ConfigFile)[env].password ?? '';
+}
+
+export function getLockoutUsername(): string {
+    // Try environment variable first (e.g., STG_LOCKOUT_USERNAME, DEV_LOCKOUT_USERNAME, PROD_LOCKOUT_USERNAME)
+    const envLockoutUsername = process.env[`${env}_LOCKOUT_USERNAME`];
+    if (envLockoutUsername) {
+        return envLockoutUsername;
+    }
+    // Fallback to config.json
+    return (config as ConfigFile)[env].lockout_username ?? '';
+}
+
+export function getLockoutPassword(): string {
+    // Try environment variable first (e.g., STG_LOCKOUT_PASSWORD, DEV_LOCKOUT_PASSWORD, PROD_LOCKOUT_PASSWORD)
+    const envLockoutPassword = process.env[`${env}_LOCKOUT_PASSWORD`];
+    if (envLockoutPassword) {
+        return envLockoutPassword;
+    }
+    // Fallback to config.json
+    return (config as ConfigFile)[env].lockout_password ?? '';
 }
 
 export function getBrowser(): string | undefined {

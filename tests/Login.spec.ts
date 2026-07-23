@@ -18,6 +18,11 @@ test.describe('Login Tests', () => {
         await login.logoutUser();
     });
 
+    test.only('Login with Lockout Account', async ({ login }) => {
+        await login.loginLockout(LOGIN.errorMessages.lockedOut);
+       
+    });
+
 });
 
 test.afterEach(async ({ page }) => {

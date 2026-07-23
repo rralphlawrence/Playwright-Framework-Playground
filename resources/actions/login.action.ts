@@ -1,5 +1,5 @@
 import { Page } from '@playwright/test';
-import { getUsername, getPassword } from '../../dataobjects/config';
+import { getUsername, getPassword, getLockoutUsername, getLockoutPassword } from '../../dataobjects/config';
 import * as LoginPage from '../../page/login.page';
 import CommonActions from './common.actions';
 import * as CommonPage from '../../page/common.page';
@@ -28,6 +28,16 @@ class LoginAction extends CommonActions {
         await this.verifyElementText(CommonPage.swagLogo, expectedText, timeout);
     }
 
+     async loginLockout(text?: string): Promise<void> {
+        await this.waitAndFill(LoginPage.LoginUsername, getLockoutUsername());
+        await this.waitAndFill(LoginPage.LoginPassword, getLockoutPassword());
+        await this.waitAndClick(LoginPage.LoginButton);
+        if (text) {
+           await this.verifyElementText(LoginPage.LoginToastMessage, text);
+        }
+    }
+
+    
     
 
 }
