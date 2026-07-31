@@ -18,7 +18,7 @@ test.describe('Login Tests', () => {
         await login.logoutUser();
     });
 
-    test('Login with Lockout Account', async ({ login }) => {
+    test.only('Login with Lockout Account', async ({ login }) => {
         await login.loginLockout(LOGIN.errorMessages.lockedOut);
        
     });
