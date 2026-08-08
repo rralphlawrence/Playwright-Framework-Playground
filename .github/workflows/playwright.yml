@@ -28,6 +28,8 @@ jobs:
         ENV: STG
         STG_USERNAME: ${{ secrets.STG_USERNAME }}
         STG_PASSWORD: ${{ secrets.STG_PASSWORD }}
+        STG_LOCKOUT_USERNAME: ${{ secrets.STG_LOCKOUT_USERNAME }}
+        STG_LOCKOUT_PASSWORD: ${{ secrets.STG_LOCKOUT_PASSWORD }}
       run: npx playwright test
     - name: Generate Test Summary
       if: ${{ !cancelled() }}
