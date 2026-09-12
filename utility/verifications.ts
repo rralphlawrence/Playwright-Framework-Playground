@@ -22,11 +22,12 @@ class Verification {
 
     async verifyAllElementsVisible(selector: string, timeout: number = 5): Promise<void> {
         const elements: Locator = this.page.locator(selector);
-        const count: number = await elements.count();
-
-        if (count === 0) {
-            throw new Error(`Expected at least one element matching "${selector}" to exist, but none were found.`);
+        try {
+            await expect(elements.first()).toBeVisible({ timeout: timeout * 1000 });
+        } catch (error) {
+            throw new Error(`Expected at least one element matching "${selector}" to be visible, but none were found.`);
         }
+        const count: number = await elements.count();
 
         for (let i = 0; i < count; i++) {
             try {
