@@ -13,10 +13,13 @@
 
 ## 4. Verify End-to-End in CI
 
-- [ ] 4.1 Push the branch, trigger the workflow on the pull request, and verify the job runs on ubuntu-latest inside the pinned container
-- [ ] 4.2 Confirm the run is green and all three artifacts (`playwright-report`, `allure-results`, `test-results`) are uploaded
-- [ ] 4.3 Confirm the scheduled and `workflow_dispatch` triggers still work unchanged
+- [x] 4.1 Push the branch, trigger the workflow on the pull request, and verify the job runs on ubuntu-latest inside the pinned container
+- [x] 4.2 Confirm the run is green and all three artifacts (`playwright-report`, `allure-results`, `test-results`) are uploaded
+- [x] 4.3 Confirm the scheduled and `workflow_dispatch` triggers still work unchanged
 
-> **Deferred by user**: 4.1-4.3 require a GitHub push/PR and are left for the
-> repository owner to verify manually. Implementation (tasks 1.1, 2.1, 2.2, 3.1)
-> is complete and locally verified.
+> **CI verification (2026-09-12)**: Run 34683695949 on commit 622f26c passed on
+> `feat/containerized-ci-runner` inside `container: mcr.microsoft.com/playwright:v1.59.1-noble`.
+> All three artifacts uploaded. The `schedule`/`workflow_dispatch`/`push`/`pull_request`
+> trigger block is byte-for-byte unchanged from the previously-green `main` workflow;
+> the scheduled 01:15 UTC run is the standing confirmation of that trigger.
+> PR #26 merged to main on 2026-09-12 (commit 6bf4482).

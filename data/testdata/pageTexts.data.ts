@@ -1,5 +1,5 @@
 export const LOGIN: {
-    logoText: string;
+        logoText: string;
     errorMessages: {
         lockedOut: string;
         invalidCredentials: string;
